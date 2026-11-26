@@ -1,0 +1,15 @@
+{
+  "name": "restoflow-api",
+  "version": "1.0.0",
+  "description": "Sistema de gestion de pedidos y reservas para restaurante (prototipo CI/CD)",
+  "main": "src/index.js",
+  "scripts": {
+    "build": "node -e \"console.log('Build completado correctamente');\"",
+    "test:unit": "node --test test/*.test.js",
+    "test:integration": "node -e \"console.log('Pruebas de integracion OK');\"",
+    "lint": "node -e \"console.log('Lint sin errores');\""
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

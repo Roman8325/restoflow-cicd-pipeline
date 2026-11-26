@@ -1,0 +1,40 @@
+name: RestoFlow CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener codigo fuente
+        uses: actions/checkout@v4
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Compilar y verificar estilo
+        run: |
+          npm run build
+          npm run lint
+
+      - name: Ejecutar pruebas unitarias y de integracion
+        run: |
+          npm run test:unit
+          npm run test:integration
+
+  docker-build-check:
+    needs: build-and-test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Obtener codigo fuente
+        uses: actions/checkout@v4
+
+      - name: Verificar construccion de imagen Docker
+        run: |
+          docker build -t restoflow-api:ci .
